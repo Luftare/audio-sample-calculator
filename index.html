@@ -1,0 +1,78 @@
+<!doctype html>
+
+<head>
+  <title>Producer</title>
+</head>
+<style>
+  .track-label {
+    display: inline-block;
+    height: 20px;
+    width: 80px;
+    background: #333;
+    color: white;
+    margin: 4px;
+    padding-left: 4px;
+    margin-left: 0;
+  }
+
+  .variation-bar {
+    display: inline-block;
+    height: 20px;
+    width: 50px;
+    background: teal;
+    color: white;
+    margin: 4px;
+    text-align: center;
+  }
+
+  .track-visualization {
+    margin-top: 42px;
+  }
+
+  #vibe-grid {
+    background: teal;
+    border: solid black 1px;
+  }
+</style>
+
+<body>
+  <div id="root">
+    <h3>Tracks: {{trackCount}}
+      <button @click="addTrack">+</button>
+      <button @click="removeTrack">-</button>
+    </h3>
+    <h3>Variations count
+      <select @change="onVariationChange">
+        <option v-for="(variationCount, i) in variations" :value="i">{{variationCount}}</option>
+      </select>
+    </h3>
+
+    <h3>Tempo (BPM)
+      <input type="number" v-model="BPM">
+    </h3>
+
+    <h3>Loop bars count
+      <input type="number" v-model="loopBars">
+    </h3>
+
+    <h3>File format
+      <select @change="onFormatChange">
+        <option v-for="(format, i) in formats" :value="i">{{format.desc}}</option>
+      </select>
+    </h3>
+
+    <h3>Disk space {{totalBytes}} MB</h3>
+
+    <h3>Samples to produce</h3>
+    <div v-for="(trackIndex, i) in trackCount">
+      <span class="track-label">Track {{i + 1}}</span>
+      <span v-for="variationIndex in selectedVariation" class="variation-bar"
+        :style="{ width: 10 * sampleDurationInSeconds + 'px' }">{{format.label}}</span>
+    </div>
+  </div>
+
+  <h3>Vibe preview</h3>
+  <canvas id="vibe-grid" width="300" height="300"></canvas>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+  <script src="app.js"></script>
+</body>
