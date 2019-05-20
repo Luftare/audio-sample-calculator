@@ -1,6 +1,7 @@
 const app = new Vue({
   el: '#root',
   data: {
+    setName: 'my-set',
     trackCount: 1,
     trackVariations: [
       [3, 8, 15, 24],

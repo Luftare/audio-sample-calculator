@@ -14,24 +14,30 @@
   }
 
   .track-label {
-    display: inline-block;
-    height: 20px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
     width: 80px;
     background: #333;
     color: white;
     margin: 4px;
     padding-left: 4px;
     margin-left: 0;
+    vertical-align: top;
   }
 
   .variation-bar {
-    display: inline-block;
-    height: 20px;
-    width: 50px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    width: 120px;
     background: teal;
     color: white;
     margin: 4px;
-    text-align: center;
+    font-size: 10px;
+    vertical-align: top;
   }
 
   .track-visualization {
@@ -46,10 +52,15 @@
 
 <body>
   <div id="root">
+    <h3>Set name
+      <input v-model="setName" />
+    </h3>
+
     <h3>Tracks: {{trackCount}}
       <button @click="addTrack">+</button>
       <button @click="removeTrack">-</button>
     </h3>
+
     <h3>Variations count
       <select @change="onVariationChange">
         <option v-for="(variationCount, i) in variations" :value="i">{{variationCount}}</option>
@@ -75,8 +86,8 @@
     <h3>Samples to produce</h3>
     <div v-for="(trackIndex, i) in trackCount">
       <span class="track-label">Track {{i + 1}}</span>
-      <span v-for="variationIndex in selectedVariation" class="variation-bar"
-        :style="{ width: 10 * sampleDurationInSeconds + 'px' }">{{format.label}}</span>
+      <span v-for="variationIndex in selectedVariation"
+        class="variation-bar">{{setName}}-t{{i + 1}}-v{{variationIndex}}.{{format.label}}</span>
     </div>
   </div>
 
